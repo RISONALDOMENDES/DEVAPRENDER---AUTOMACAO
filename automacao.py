@@ -28,6 +28,7 @@ for linha in pagina_clientes.iter_rows(min_row=2, values_only=True):
     sleep(5)
     campo_pesquisa = driver.find_element(By.XPATH, "//input[@id='cpfInput']")
     sleep(3)
+    campo_pesquisa.clear()
     campo_pesquisa.send_keys(cpf)
     sleep(4)
     # 3-verificar se esta "em dia" ou " atrasado"
@@ -39,12 +40,11 @@ for linha in pagina_clientes.iter_rows(min_row=2, values_only=True):
     # 4- se estiver "em dia" pegar a data do pagamento e metodo de pagamento
     status = driver.find_element(By.XPATH, "//span[@id= 'statusLabel']")
     if status.text == 'em dia':
-        data_pagamento = driver.find_eleent(By.XPATH, "//p[@id= 'paymentDate']")
+        data_pagamento = driver.find_element(By.XPATH, "//p[@id= 'paymentDate']")
         metodo_pagamento = driver.find_element(By.XPATH, "//p[@id= 'paymentMethod']")
         
         data_pagamento_limpo = data_pagamento.text.split()[3]
-        metodo_pagamento_limpo = metodo_pagamento.text.split()[4
-                                                               ]
+        metodo_pagamento_limpo = metodo_pagamento.text.split()[3]
              
         pagina_fechamento.append([nome, valor, cpf, vencimento, 'em dia',  data_pagamento_limpo, metodo_pagamento_limpo])
     else:
